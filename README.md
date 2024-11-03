@@ -12,6 +12,9 @@ The origianl Guardians of the Rift Helper was created by [datBear](https://githu
 * Adds a timer showing how long the current portal will last.
 * Overlay panel shows: Time since last portal, time until next game, and reward points.
 
-## Continued added Features
+## Continued added Features and fixed
 
-* To be added
+* Start and End notifications (by [Togtja](https://github.com/Togtja))
+* Notification when the rift barrier unlocks (by [tylanphear](https://github.com/tylanphear))
+* Option to outline deposit pool (by [JKlimov](https://github.com/JKlimov))
+* Fix a crash that could happened when RuneLite fails to find a text location (by [robin239](https://github.com/robin239))
