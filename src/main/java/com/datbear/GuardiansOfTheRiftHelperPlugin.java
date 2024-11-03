@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @PluginDescriptor(
-		name = "Guardians of the Rift Helper",
+		name = "Guardians of the Rift Helper Continued",
 		description = "Show info about the Guardians of the Rift minigame",
 		tags = {"minigame", "overlay", "guardians of the rift"}
 )
