@@ -81,6 +81,36 @@ public interface GuardiansOfTheRiftHelperConfig extends Config
         return true;
     }
 
+    @ConfigItem(
+        keyName = "notifiEnd",
+        name = "Notify when game ends",
+        description = "Notifies you when the game ends."
+    )
+    default boolean notifyEnd()
+    {
+        return true;
+    }
+
+    @ConfigItem(
+        keyName = "notifiSecondsStart",
+        name = "Seconds before start",
+        description = "How many seconds before the game starts to notify you."
+    )
+    default int notifiSecondsStart()
+    {
+        return 5;
+    }
+
+    @ConfigItem(
+        keyName = "notifiBeforeStart",
+        name = "Notify before the game starts",
+        description = "Notifies you 5 seconds before the game starts."
+    )
+    default boolean notifyBeforeStart()
+    {
+        return true;
+    }
+
 
     @ConfigItem(
             keyName = "quickPassCooldown",
