@@ -20,6 +20,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 
 import java.awt.*;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -145,7 +146,7 @@ public class GuardiansOfTheRiftHelperPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private int lastRewardUsage;
 
-
+	private boolean notifedStart = false;
 	private String portalLocation;
 	private int lastElementalRuneSprite;
 	private int lastCatalyticRuneSprite;
@@ -271,6 +272,15 @@ public class GuardiansOfTheRiftHelperPlugin extends Plugin
 			}
 			portalLocation = null;
 			portalSpawnTime = Optional.empty();
+		}
+
+		if(config.notifyBeforeStart() && nextGameStart.isPresent() && !notifedStart){
+			int timeToStart = ((int) ChronoUnit.SECONDS.between(Instant.now(), nextGameStart.get()));
+			int before_start = config.notifiSecondsStart();
+			if(timeToStart <= before_start){
+				notifier.notify("The game will start in " + timeToStart + " seconds.");
+				notifedStart = true;
+			}
 		}
 
 		Widget dialog = client.getWidget(DIALOG_WIDGET_GROUP, DIALOG_WIDGET_MESSAGE);
@@ -402,6 +412,7 @@ public class GuardiansOfTheRiftHelperPlugin extends Plugin
 			lastPortalDespawnTime = Optional.of(Instant.now());
 			nextGameStart = Optional.empty();
 			isFirstPortal = true;
+			notifedStart = false;
 		} else if(msg.contains("The rift will become active in 30 seconds.")) {
 			nextGameStart = Optional.of(Instant.now().plusSeconds(30));
 		} else if(msg.contains("The rift will become active in 10 seconds.")) {
@@ -410,6 +421,9 @@ public class GuardiansOfTheRiftHelperPlugin extends Plugin
 			nextGameStart = Optional.of(Instant.now().plusSeconds(5));
 		} else if(msg.contains("The Portal Guardians will keep their rifts open for another 30 seconds.")){
 			nextGameStart = Optional.of(Instant.now().plusSeconds(60));
+			if (config.notifyEnd()){
+				notifier.notify("The GOTR game ended.");
+			}
 		} else if(msg.contains("You found some loot:")){
 			elementalRewardPoints--;
 			catalyticRewardPoints--;
